@@ -432,7 +432,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
 		$query = new SMWQuery( $desc );
-		$query->setLimit( self::getMaxValuesToRetrieve( $substring ) );
+		$query->setLimit( self::getMaxValuesToRetrieve() );
 		$query_result = $store->getQueryResult( $query );
 		$pages = [];
 		$sortkeys = [];
