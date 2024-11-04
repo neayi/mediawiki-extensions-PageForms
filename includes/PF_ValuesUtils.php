@@ -431,8 +431,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		$desc = new SMWConceptDescription( $conceptDI );
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
-		$query = new SMWQuery( $desc );
-		$query->setLimit( self::getMaxValuesToRetrieve() );
+		$query = new SMWQuery( $desc );		
 		$query_result = $store->getQueryResult( $query );
 		$pages = [];
 		$sortkeys = [];
@@ -509,6 +508,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			$sortkeys = $filtered_sortkeys;
 		}
 		array_multisort( $sortkeys, $pages );
+
+		$pages = array_slice( $pages, 0, self::getMaxValuesToRetrieve( $substring ), true );
+
 		return $pages;
 	}
 
